@@ -33,14 +33,14 @@ class DropReceiverView: NSView {
         let fileTypes = [
             "public.data"
         ]
-        register(forDraggedTypes: fileTypes);
+        registerForDraggedTypes(convertToNSPasteboardPasteboardTypeArray(fileTypes));
     }
     //https://developer.apple.com/library/mac/documentation/Miscellaneous/Reference/UTIRef/Articles/System-DeclaredUniformTypeIdentifiers.html
     
     override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
         
         //        Swift.print("HELLO \(getPathFromBoard(sender.draggingPasteboard()))")
-        let path = getPathFromBoard(sender.draggingPasteboard())
+        let path = getPathFromBoard(sender.draggingPasteboard)
         delegate?.dropDragEntered(path)
         addBackgroundColor()
         return NSDragOperation.copy
@@ -51,7 +51,7 @@ class DropReceiverView: NSView {
     }
     
     override func draggingUpdated(_ sender: NSDraggingInfo) -> NSDragOperation {
-        delegate?.dropUpdated(sender.draggingLocation())
+        delegate?.dropUpdated(sender.draggingLocation)
         return NSDragOperation.copy
     }
     override func draggingExited(_ sender: NSDraggingInfo?) {
@@ -60,7 +60,7 @@ class DropReceiverView: NSView {
     }
     
     override func concludeDragOperation(_ sender: NSDraggingInfo?) {
-        let path = getPathFromBoard((sender?.draggingPasteboard())!)
+        let path = getPathFromBoard((sender?.draggingPasteboard)!)
         Swift.print("path is \(path)")
         removeBackgroundColor()
         delegate?.dropDragPerformed(path)
@@ -86,4 +86,9 @@ class DropReceiverView: NSView {
     }
     
     
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToNSPasteboardPasteboardTypeArray(_ input: [String]) -> [NSPasteboard.PasteboardType] {
+	return input.map { key in NSPasteboard.PasteboardType(key) }
 }

@@ -47,12 +47,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let viewDict: [String: Any] = ["inserted":insertedView, "container":containerView]
         let viewConstraintH = NSLayoutConstraint.constraints(
                 withVisualFormat: "H:|[inserted]|",
-                options: NSLayoutFormatOptions(rawValue: 0),
+                options: NSLayoutConstraint.FormatOptions(rawValue: 0),
                 metrics: nil,
                 views: viewDict)
         let viewConstraintV = NSLayoutConstraint.constraints(
             withVisualFormat: "V:|[inserted]|",
-            options: NSLayoutFormatOptions(rawValue: 0),
+            options: NSLayoutConstraint.FormatOptions(rawValue: 0),
             metrics: nil,
             views: viewDict)
         containerView.addConstraints(viewConstraintH)
@@ -154,7 +154,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         scriptsMenu.addItem(revealFolderItem)
     }
     
-    func runScript(_ sender:NSMenuItem){
+    @objc func runScript(_ sender:NSMenuItem){
         Util().stopRefreshingDeviceList()
         let scriptPath = "\(Util().getSupportFolderScriptPath())/\(sender.title).sh"
         print("ready to run \(scriptPath) on all Android devices")

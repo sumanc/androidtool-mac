@@ -311,7 +311,7 @@ class DeviceViewController: NSViewController, NSPopoverDelegate, UserScriptDeleg
     }
     
     func iosRecorderDidFinish(_ outputFileURL: URL!) {
-        NSWorkspace.shared().openFile(outputFileURL.path)
+        NSWorkspace.shared.openFile(outputFileURL.path)
         self.videoButton.image = restingButton
         
         Util().showNotification("Your recording is ready", moreInfo: "", sound: true)
@@ -364,7 +364,7 @@ class DeviceViewController: NSViewController, NSPopoverDelegate, UserScriptDeleg
         setup()
     }
     
-    override init?(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
 
@@ -449,7 +449,7 @@ class DeviceViewController: NSViewController, NSPopoverDelegate, UserScriptDeleg
         }
     }
         
-    func enableVideoButtonWhenReady(){
+    @objc func enableVideoButtonWhenReady(){
         switch device.deviceOS! {
         case .android:
             startWaitingForAndroidVideoReady()
@@ -494,7 +494,7 @@ class DeviceViewController: NSViewController, NSPopoverDelegate, UserScriptDeleg
             move.fromValue = 30
         }
             
-        move.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        move.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
         installInviteView.wantsLayer = true
         let fade = CABasicAnimation(keyPath: "opacity")
         fade.duration = 0.3
@@ -507,7 +507,7 @@ class DeviceViewController: NSViewController, NSPopoverDelegate, UserScriptDeleg
             fade.fromValue = 1
         }
         
-        fade.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        fade.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
         
         CATransaction.begin()
         CATransaction.setCompletionBlock { () -> Void in

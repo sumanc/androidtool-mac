@@ -46,10 +46,10 @@ class MasterViewController: NSViewController, DeviceDiscovererDelegate, NSTableV
     
     func showDevicePicker(_ apkPath:String){
         let devicePickerVC = DevicePickerViewController(nibName: "DevicePickerViewController", bundle: nil)
-        devicePickerVC?.devices = devices
-        devicePickerVC?.apkPath = apkPath
+        devicePickerVC.devices = devices
+        devicePickerVC.apkPath = apkPath
         if #available(OSX 10.10, *) {
-            self.presentViewControllerAsSheet(devicePickerVC!)
+            self.presentAsSheet(devicePickerVC)
         } else {
             // Fallback on earlier versions
         }

@@ -10,12 +10,15 @@ import Cocoa
 
 class WindowMoverView: NSView {
     
-    override func register(forDraggedTypes newTypes: [String]) {
+    override func registerForDraggedTypes(_ newTypes: [NSPasteboard.PasteboardType]) {
+// Local variable inserted by Swift 4.2 migrator.
+let newTypes = convertFromNSPasteboardPasteboardTypeArray(newTypes)
+
         Swift.print("$$ registering")
         let fileTypes = [
             ".apk"
         ]
-        register(forDraggedTypes: fileTypes);
+        registerForDraggedTypes(convertToNSPasteboardPasteboardTypeArray(fileTypes));
     }
     
     override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
@@ -51,4 +54,14 @@ class WindowMoverView: NSView {
         super.mouseEntered(with: theEvent)
     }
     
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSPasteboardPasteboardTypeArray(_ input: [NSPasteboard.PasteboardType]) -> [String] {
+	return input.map { key in key.rawValue }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToNSPasteboardPasteboardTypeArray(_ input: [String]) -> [NSPasteboard.PasteboardType] {
+	return input.map { key in NSPasteboard.PasteboardType(key) }
 }
